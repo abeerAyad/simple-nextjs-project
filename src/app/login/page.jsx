@@ -4,50 +4,39 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-const Signup =  () => {
+const Login = () => {
     const [user, setUser] = useState({
-    username:"",
-    email:"", 
-    password:""
-})
-const [loading, setLoading] = useState(false)
-const router = useRouter()
-    const onSignup = async () => {
+        email: "",
+        password: ""
+    })
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
+    const onLogin = async () => {
 
         try {
             setLoading(true)
-            await axios.post('/api/users/signup', user)
-            router.push('/login')
+            await axios.post('/api/users/login', user)
+            router.push('/')
         } catch (error) {
             console.log(error);
-    
-        }finally{
+
+        } finally {
             setLoading(false)
         }
     }
 
-    console.log(user);
 
     return (
         <div>
-           <h1>Sign up</h1>
-           <div>
+            <h1>Login</h1>
+            <div>
                 <Image
                     src='/assets/loggedBg.jfif'
                     alt='sign'
                     width={100}
                     height='100'
-                    style={{}}
                 />
                 <div>
-                    <label htmlFor="username">Username</label>
-                    <input 
-                    id='username'
-                    type='text'
-                    value={user.username}
-                    placeholder="Username ..."
-                    onChange={(e) => setUser({...user,username: e.target.value})}
-                    />
 
                     <label htmlFor="email">Email</label>
                     <input
@@ -57,7 +46,7 @@ const router = useRouter()
                         placeholder="Email ..."
                         onChange={(e) => setUser({ ...user, email: e.target.value })}
                     />
-                    
+
                     <label htmlFor="password">Password</label>
                     <input
                         id='password'
@@ -66,15 +55,15 @@ const router = useRouter()
                         placeholder="Password ..."
                         onChange={(e) => setUser({ ...user, password: e.target.value })}
                     />
-                    <button onClick={onSignup}>{!loading ? 'Sign up':'Loading ...'}</button>
+                    <button onClick={onLogin}>{!loading ? 'login' : 'Loading ...'}</button>
                 </div>
-           </div>
+            </div>
         </div>
     )
 
 }
 
-export default Signup
+export default Login
 
 
 
