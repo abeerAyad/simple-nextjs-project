@@ -9,6 +9,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required:[true, 'Please provide content'],
     },
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'users'
+    }
 })
 
 const Post = mongoose.models.posts || mongoose.model('posts', postSchema);
