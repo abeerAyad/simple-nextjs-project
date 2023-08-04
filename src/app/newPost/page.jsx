@@ -15,7 +15,7 @@ const NewPost = () => {
 
         try {
             setLoading(true)
-            await axios.post('/api/post', post)
+            await axios.post('/api/posts/createPost', post)
             router.push('/')
         } catch (error) {
             console.log(error);

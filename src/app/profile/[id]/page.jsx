@@ -15,14 +15,14 @@ const UserProfilePage = ({params:{id}}) => {
 
 
   const getPost = async () => {
-    const { data: { posts } } = await axios.get('/api/allPost')
+    const { data: { posts } } = await axios.get('/api/posts')
     const postUser = posts.filter((post) => id === post.userId._id)
     setPost(postUser);
   }
 
   const deletePost = async (id) => {
     try {
-      await axios.delete(`/api/deletePost/${id}`)
+      await axios.delete(`/api/posts/${id}`)
       getPost()
     } catch (error) {
       console.log(error);

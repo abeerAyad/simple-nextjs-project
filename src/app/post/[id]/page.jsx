@@ -1,4 +1,5 @@
 "use client"
+import { getUserData } from '@/helpers/route'
 import axios from 'axios'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -7,7 +8,7 @@ const SinglePost = ({params:{id}}) => {
     const [singlePost, setSinglePost] = useState({})
 
     const getSinglePost = async () => {
-        const { data: { post } } = await axios.get(`/api/singlePost/${id}`)
+        const { data: { post } } = await axios.get(`/api/posts/${id}`)
         setSinglePost(post)
     }
     useEffect(() => {

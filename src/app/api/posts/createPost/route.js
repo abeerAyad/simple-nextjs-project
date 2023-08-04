@@ -9,12 +9,10 @@ dbConnection()
 
 export async function POST(req)  {
     const user = await getUserData(req);
-        const userData = await User.findOne({_id: user._id}).select('_id')
-
     try {
         const {title, content} = await req.json()
         const post = await Post.create({
-            title, content, userId:userData._id
+            title, content, userId:user._id
         })
         return NextResponse.json({msg:'post created successfully', post}, {status:201})
 

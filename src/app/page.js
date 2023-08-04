@@ -9,13 +9,13 @@ export default function Home() {
   const [postList, setPostList] = useState([])
 
   const getAllPost = async () => {
-    const {data:{posts}} = await axios.get('/api/allPost')
+    const {data:{posts}} = await axios.get('/api/posts')
     setPostList(posts);
   }
 
   const deletePost = async (id) => {
     try {
-    await axios.delete(`/api/deletePost/${id}`)
+    await axios.delete(`/api/posts/${id}`)
     getAllPost()
     } catch (error) {
       console.log(error);
