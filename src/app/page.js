@@ -22,6 +22,7 @@ export default function Home() {
     }
   }
 
+ 
   useEffect(() => {
     getAllPost()
   },[])
@@ -43,6 +44,9 @@ export default function Home() {
     <h1><Link href={`/post/${post._id}`}>{post?.title}</Link></h1>
     <h1>{post?.content}</h1>
     <button onClick={() => deletePost(post._id)}>x</button>
+    <button><Link href={`/edit/${post._id}`}>edit</Link></button>
+
+
     </div>
 
 
