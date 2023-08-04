@@ -6,7 +6,6 @@ export async function getUserData(req) {
         const decodedToken =  verify(token, process.env.TOKEN_SECRET)
         return decodedToken
     } catch (error) {
-        console.log(error,'helpers');
          throw new Error(error.message)
 
     }
