@@ -1,7 +1,6 @@
 import dbConnection from "@/db/dbConnection";
 import { getUserData } from "@/helpers/route";
 import Post from "@/models/postModel";
-import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 
 

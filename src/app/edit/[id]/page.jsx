@@ -7,12 +7,11 @@ import Navbar from "../../components/Navbar"
 const NewPost = ({params:{id}}) => {
     const [loading, setLoading] = useState(false)
     const router = useRouter()
-    const [onePost, setOnePost] = useState([])
 
 
     const [post, setPost] = useState({
-        title: onePost.title,
-        content: onePost.content
+        title: "",
+        content: ""
     })
     
 
