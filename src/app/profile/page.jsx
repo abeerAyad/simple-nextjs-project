@@ -15,12 +15,13 @@ const UserProfile = () => {
         const {data:{userData}} = await axios.get('/api/users/user')
       setUser(userData);
     }
+    
+  const postUserFilter = postsUser.filter((post) => post.userId?._id === user?._id)
 
   const getPosts = async () => {
     try{
     const { data: { posts } } = await axios.get('/api/posts')
-    const postUser = posts.filter((post) => post.userId?._id === user?._id)
-      setPostsUser(postUser);
+      setPostsUser(posts);
   } catch (error) {
     console.log(error);
   } finally {
@@ -28,6 +29,8 @@ const UserProfile = () => {
 
   }
   }
+
+  
   const deletePost = async (id) => {
     try {
       await axios.delete(`/api/posts/${id}`)
@@ -53,7 +56,7 @@ const UserProfile = () => {
           <h3>{user?.email}</h3>
       {isLoading ?(<p>Loading ...</p>)
       :
-        (postsUser?.map((post) => (
+        (postUserFilter?.map((post) => (
           <div key={post?._id} style={{ border: '1px solid #555', marginTop: '20px' }}>
             <h1>{post?.title}</h1>
             <h1>{post?.content}</h1>
