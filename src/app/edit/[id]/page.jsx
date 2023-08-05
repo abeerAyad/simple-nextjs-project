@@ -39,7 +39,7 @@ const NewPost = ({params:{id}}) => {
     return (
         <div>
             <Navbar />
-            <h1>create Post</h1>
+            <h1>Edit Post</h1>
 
             <div>
 
