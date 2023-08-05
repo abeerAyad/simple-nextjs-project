@@ -8,10 +8,20 @@ import Navbar from './components/Navbar'
 export default function Home() {
   const [postList, setPostList] = useState([])
   const [user, setUser] = useState({})
+  
+  const [isLoading, setIsLoading] = useState(true); 
 
   const getAllPost = async () => {
-    const {data:{posts}} = await axios.get('/api/posts')
-    setPostList(posts);
+    try {
+      
+      const {data:{posts}} = await axios.get('/api/posts')
+      setPostList(posts);
+    } catch (error) {
+      console.log(error);
+    }finally {
+    setIsLoading(false)
+
+    }
   }
 
   const deletePost = async (id) => {
@@ -34,36 +44,36 @@ export default function Home() {
   },[])
   return (
   <>
-            <Navbar />
+  <Navbar />
 
   <h1>Home</h1>
-  {user?._id && (<button><Link href={`/newPost`}>createPost</Link></button>)}
+  {user._id && (<button><Link href={`/newPost`}>createPost</Link></button>)}
 
   <div>
-  {postList?.map((post) => (
+    {isLoading? (<p>Loading ...</p>)
+  :(postList.map((post) => (
     <div key={post._id} style={{border:'1px solid #555', marginTop:'20px'}}>
 
-      <div>{ post?.userId._id === user?._id
-      ?(<Link href='/profile'>{post?.userId?.username}</Link>) 
-      : (<Link href={`/profile/${post?.userId?._id}`}>{post?.userId?.username}</Link>)}
+      <div>{ post.userId._id === user._id
+      ? (<Link href='/profile'>{post.userId.username}</Link>) 
+      : (<Link href={`/profile/${post.userId._id}`}>{post.userId.username}</Link>)}
         </div>
 
-    <h1><Link href={`/post/${post?._id}`}>{post?.title}</Link></h1>
-    <h1>{post?.content}</h1>
+    <h1><Link href={`/post/${post._id}`}>{post.title}</Link></h1>
+    <h1>{post.content}</h1>
 
-   { post?.userId?._id === user?._id && 
+   { post.userId?._id === user?._id && 
    (<button onClick={() => deletePost(post._id)}>x</button>)
    }
 
-    { post?.userId?._id ===user?._id && 
+    { post.userId?._id ===user._id && 
     (<button><Link href={`/edit/${post._id}`}>edit</Link></button>)
     }
 
 
     </div>
-
-
-  ))}
+ ))
+ )}
       </div>
       </>
   )

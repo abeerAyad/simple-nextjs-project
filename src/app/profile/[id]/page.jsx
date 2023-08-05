@@ -8,6 +8,9 @@ const UserProfilePage = ({params:{id}}) => {
   const [post, setPost] = useState([])
 
 
+const [isLoading, setIsLoading] = useState(true);
+
+
     const userDetails = async () => {
         const { data: { user } } = await axios.get(`/api/users/user/${id}`)
         setUserProfile(user)
@@ -15,9 +18,16 @@ const UserProfilePage = ({params:{id}}) => {
 
 
   const getPost = async () => {
+    try{
     const { data: { posts } } = await axios.get('/api/posts')
     const postUser = posts.filter((post) => id === post.userId._id)
     setPost(postUser);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setIsLoading(false)
+
+  }
   }
 
   const deletePost = async (id) => {
@@ -39,14 +49,14 @@ const UserProfilePage = ({params:{id}}) => {
     <div>
       <h1>{userProfile?.username}</h1>
       <h1>{userProfile?.email}</h1>
-      {post?.map((post) => (
+      {isLoading?(<p>Loading...</p>):(post?.map((post) => (
         <div key={post._id} style={{ border: '1px solid #555', marginTop: '20px' }}>
           <h1>{post?.title}</h1>
           <h1>{post?.content}</h1>
           <button onClick={() => deletePost(post._id)}>x</button>
       
         </div>
-      ))}
+      )))}
 
 
     </div>
