@@ -3,6 +3,8 @@ import axios from "axios"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import styles from '../Sign.module.css'
+
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -27,38 +29,38 @@ const Login = () => {
 
 
     return (
-        <div>
+        <div className={styles.signContainer}>
             <h1>Login</h1>
-            <div>
-                <Image
-                    src='/assets/loggedBg.jfif'
-                    alt='sign'
-                    width={100}
-                    height='100'
-                />
-                <div>
+            <div className={styles.signForm}>
 
-                    <label htmlFor="email">Email</label>
+             
+                <div className={styles.inputGroup}>
+                    <label className={styles.labelStyle} htmlFor="email">Email</label>
                     <input
-                        id='email'
-                        type='text'
+                        id="email"
+                        type="email"
                         value={user.email}
-                        placeholder="Email ..."
+                        placeholder="Email..."
+                        className={styles.inputStyle}
                         onChange={(e) => setUser({ ...user, email: e.target.value })}
                     />
-
-                    <label htmlFor="password">Password</label>
+                </div>
+                <div className={styles.inputGroup}>
+                    <label className={styles.labelStyle} htmlFor="password">Password</label>
                     <input
-                        id='password'
-                        type='text'
+                        id="password"
+                        type="password"
                         value={user.password}
-                        placeholder="Password ..."
+                        placeholder="Password..."
+                        className={styles.inputStyle}
                         onChange={(e) => setUser({ ...user, password: e.target.value })}
                     />
-                    <button onClick={onLogin}>{!loading ? 'login' : 'Loading ...'}</button>
+                </div>
+                <button  className={styles.signButton} onClick={onLogin}>
+                    {!loading ? 'login' : 'Loading ...'}
+                </button>
                 </div>
             </div>
-        </div>
     )
 
 }

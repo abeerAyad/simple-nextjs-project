@@ -3,6 +3,8 @@ import axios from "axios"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import styles from '../Sign.module.css'
+import Link from "next/link"
 
 const Signup =  () => {
     const [user, setUser] = useState({
@@ -29,50 +31,56 @@ const router = useRouter()
     console.log(user);
 
     return (
-        <div>
-           <h1>Sign up</h1>
-           <div>
-                <Image
-                    src='/assets/loggedBg.jfif'
-                    alt='sign'
-                    width={100}
-                    height='100'
-                    style={{}}
-                />
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input 
-                    id='username'
-                    type='text'
-                    value={user.username}
-                    placeholder="Username ..."
-                    onChange={(e) => setUser({...user,username: e.target.value})}
-                    />
-
-                    <label htmlFor="email">Email</label>
+        <div className={styles.signContainer}>
+            <h1>Sign up</h1>
+            <div className={styles.signForm}>
+              
+                <div className={styles.inputGroup}>
+                    <label className={styles.labelStyle} htmlFor="username">Username</label>
                     <input
-                        id='email'
-                        type='text'
+                        id="username"
+                        type="text"
+                        value={user.username}
+                        placeholder="Username..."
+                        className={styles.inputStyle}
+                        onChange={(e) => setUser({ ...user, username: e.target.value })}
+                    />
+                </div>
+                <div className={styles.inputGroup}>
+                    <label className={styles.labelStyle} htmlFor="email">Email</label>
+                    <input
+                        id="email"
+                        type="email"
                         value={user.email}
-                        placeholder="Email ..."
+                        placeholder="Email..."
+                        className={styles.inputStyle}
                         onChange={(e) => setUser({ ...user, email: e.target.value })}
                     />
-                    
-                    <label htmlFor="password">Password</label>
+                </div>
+                <div className={styles.inputGroup}>
+                    <label className={styles.labelStyle} htmlFor="password">Password</label>
                     <input
-                        id='password'
-                        type='text'
+                        id="password"
+                        type="password"
                         value={user.password}
-                        placeholder="Password ..."
+                        placeholder="Password..."
+                        className={styles.inputStyle}
                         onChange={(e) => setUser({ ...user, password: e.target.value })}
                     />
-                    <button onClick={onSignup}>{!loading ? 'Sign up':'Loading ...'}</button>
                 </div>
-           </div>
-        </div>
-    )
 
-}
+                <p>Already have an account?
+                     <Link href="/login">Login</Link>
+                </p>
+                
+                <button onClick={onSignup} className={styles.signButton}>
+                    {!loading ? 'Sign up' : 'Loading...'}
+                </button>
+            </div>
+        </div>
+    );
+};
+
 
 export default Signup
 
