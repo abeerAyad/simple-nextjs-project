@@ -1,9 +1,10 @@
 "use client"
 import axios from 'axios'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
+import styles from './home.module.css'
+import './global.css'
 
 export default function Home() {
   const [postList, setPostList] = useState([])
@@ -46,34 +47,47 @@ export default function Home() {
   <>
   <Navbar />
 
-  <h1>Home</h1>
-  {user._id && (<button><Link href={`/newPost`}>createPost</Link></button>)}
+  
+      <div className={styles.container}>
+        <h1 className={styles.title}>Home</h1>
+        {user._id && (
+          <button className={styles.createPostButton}>
+            <Link href={`/newPost`} className={styles.link}>Create Post</Link>
+          </button>
+        )}
 
-  <div>
+  <div className={styles.postList}>
     {isLoading? (<p>Loading ...</p>)
-  :(postList.map((post) => (
-    <div key={post._id} style={{border:'1px solid #555', marginTop:'20px'}}>
-
-      <div>{ post.userId._id === user._id
-      ? (<Link href='/profile'>{post.userId.username}</Link>) 
-      : (<Link href={`/profile/${post.userId._id}`}>{post.userId.username}</Link>)}
+  :(
+    postList.map((post) => (
+      <div key={post._id} className={styles.postCard}>
+        <div className={styles.postUser}>
+          {post.userId._id === user._id ? (
+            <Link href='/profile' className={styles.link}>{post.userId.username}</Link>
+          ) : (
+            <Link href={`/profile/${post.userId._id}`} className={styles.link}>{post.userId.username}</Link>
+          )}
         </div>
-
-    <h1><Link href={`/post/${post._id}`}>{post.title}</Link></h1>
-    <h1>{post.content}</h1>
+    <h2 className={styles.postTitle}>
+        <Link href={`/post/${post._id}`} className={styles.link}>{post.title}</Link>
+    </h2>
+    <p className={styles.postContent}>{post.content}</p>
 
    { post.userId?._id === user?._id && 
-   (<button onClick={() => deletePost(post._id)}>x</button>)
+   (<button onClick={() => deletePost(post._id)} className={styles.deleteButton}>Delete</button>)
    }
 
     { post.userId?._id ===user._id && 
-    (<button><Link href={`/edit/${post._id}`}>edit</Link></button>)
+    (<button  className={styles.editButton}>
+      <Link className={styles.link} href={`/edit/${post._id}`}>edit</Link>
+      </button>)
     }
 
 
     </div>
  ))
  )}
+      </div>
       </div>
       </>
   )

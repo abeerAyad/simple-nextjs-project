@@ -9,11 +9,36 @@ const Navbar = () => {
         router.push('/login')
     }
   return (
-    <div style={{display:'flex', justifyContent:'space-between',alignItems:'center'}}>
-      <h1>Next</h1>
-      <button onClick={logout}>Logout</button>
+    <div style={styles.navbar}>
+      <h1 style={styles.logo}>Next</h1>
+      <button style={styles.logoutButton} onClick={logout}>Logout</button>
     </div>
   )
 }
+
+const styles = {
+  navbar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '10px 20px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    margin:0,
+  },
+  logo: {
+    fontSize: '24px',
+    fontWeight: 'bold',
+    margin: 0,
+  },
+  logoutButton: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    color: 'white',
+    cursor: 'pointer',
+    fontSize: '16px',
+    fontWeight: 'bold',
+  },
+};
 
 export default Navbar
